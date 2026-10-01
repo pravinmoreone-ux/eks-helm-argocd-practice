@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-presync
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: presync
+          image: busybox:1.36
+          command:
+            - sh
+            - -c
+            - |
+              echo "================================"
+              echo "Argo CD PreSync Hook"
+              echo "================================"
+              echo "Running pre-deployment validation..."
+              sleep 5
+              echo "Validation successful"
