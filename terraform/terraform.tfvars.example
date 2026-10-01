@@ -1,0 +1,5 @@
+aws_region         = "ap-south-1"
+cluster_name       = "helm-argocd-eks"
+vpc_cidr           = "10.20.0.0/16"
+environment        = "dev"
+enable_nat_gateway = true
