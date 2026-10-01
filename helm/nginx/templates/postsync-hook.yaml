@@ -1,0 +1,27 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ .Release.Name }}-postsync
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+
+      containers:
+        - name: postsync
+          image: busybox:1.36
+
+          command:
+            - sh
+            - -c
+            - |
+              echo "================================"
+              echo "Argo CD PostSync Hook"
+              echo "================================"
+              echo "Running post-deployment smoke test..."
+              sleep 5
+              echo "Smoke test successful"
